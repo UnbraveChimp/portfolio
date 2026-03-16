@@ -1,0 +1,57 @@
+# Due to how Astro handles type inference with this structure,
+# we need to prefix all configuration keys with an underscore.
+
+[_.site]
+baseUrl = "https://ash0.dev"
+
+[_.globalMeta]
+title = "Ash"
+description = "My Personal Portfolio"
+longDescription = "This is my personal portfolio which contains all of the projects I have worked on."
+cardImage = "https://ash0.dev/pfp.png"
+keywords = ["game development", "design", "writing", "coding", "ash", "portfolio", "unbravechimp", "unbrave", "chimp"]
+
+[_.blogMeta]
+title = "Ash's Blog"
+description = "I post stuff here when I'm bored."
+longDescription = "All of my dev logs and random stuff that I post when I am bored."
+cardImage = "https://ash0.dev/pfp.png"
+keywords = ["development", "blog", "technology"]
+
+[_.projectMeta]
+title = "Ash's Projects"
+description = "A list of my projects I have worked on."
+longDescription = "All of my projects that I have worked on in the past few years."
+cardImage = "https://ash0.dev/pfp.png"
+keywords = ["web development", "design", "technology"]
+
+[_.notFoundMeta]
+title = "Ash's Portfolio 404"
+description = "The page you are looking for does not exist."
+longDescription = "The page you are looking for does not exist. Maybe it never existed. Spooky."
+cardImage = "https:/ash0.dev/pfp.png"
+
+[_.hero]
+title = "Ash's Portfolio"
+subtitle = "AKA UnbraveChimp<br />Game Dev"
+image = "https://ash0.dev/pfp.png"
+ctaText = "View Projects"
+ctaUrl = "/projects"
+
+[_.personal]
+name = "UnbraveChimp"
+githubProfile = "https://github.com/unbravechimp"
+twitterProfile = "https://twitter.com/unbravechimp"
+linkedinProfile = "https://github.com/unbravechimp"
+
+[_.texts]
+articlesName = "Articles"
+projectsName = "Projects"
+viewAll = "View All"
+noArticles = "No articles found."
+noProjects = "No projects found."
+
+[_.menu]
+home = "/"
+projects = "/projects"
+blog = "/blog"
