@@ -1,11 +1,11 @@
 ---
-import type { ArticleFrontmatter } from "../../lib/types";
+import type { BlogListItem } from "../../lib/types";
 import { getConfigurationCollection } from "../../lib/utils";
 import ArticleSnippet from "../ArticleSnippet.astro";
 import Anchor from "../common/Anchor.astro";
 
 type Props = {
-	featuredArticles: Array<ArticleFrontmatter>;
+  featuredArticles: Array<BlogListItem>;
 };
 
 const { featuredArticles } = Astro.props;
@@ -26,7 +26,9 @@ const { data: config } = await getConfigurationCollection();
             description={article.description}
             url={article.url}
             timestamp={article.timestamp}
-            duration={`${article.readTime} min`}
+            duration={article.duration}
+            image={article.image}
+            source={article.source}
           />
         </li>
       ))

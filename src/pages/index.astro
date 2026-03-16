@@ -5,6 +5,8 @@ import FeaturedArticles from "../components/home/FeaturedArticles.astro";
 import FeaturedProjects from "../components/home/FeaturedProjects.astro";
 import Hero from "../components/home/Hero.astro";
 import Layout from "../layouts/Layout.astro";
+import { getExternalBlogItems } from "../lib/rss";
+import type { BlogListItem } from "../lib/types";
 import { getConfigurationCollection } from "../lib/utils";
 
 const { data: config } = await getConfigurationCollection();
@@ -15,12 +17,22 @@ const featuredProjects = (
 	...e.data,
 	url: `${config.site.baseUrl}/projects/${e.data.slug}`,
 }));
-const featuredArticles = (
+const featuredArticles: BlogListItem[] = (
 	await getCollection("blog", (e) => e.data.featured)
 ).map((e) => ({
-	...e.data,
+  title: e.data.title,
+  description: e.data.description,
+  timestamp: e.data.timestamp,
+  duration: e.data.readTime ? `${e.data.readTime} min` : undefined,
+  image: e.data.cardImage,
 	url: `${config.site.baseUrl}/blog/${e.data.slug}`,
 }));
+
+const externalArticles = await getExternalBlogItems();
+
+const homepageArticles: BlogListItem[] = [...featuredArticles, ...externalArticles]
+  .sort((a, b) => (b.timestamp?.valueOf() ?? 0) - (a.timestamp?.valueOf() ?? 0))
+  .slice(0, 8);
 ---
 
 <Layout>
@@ -62,6 +74,6 @@ const featuredArticles = (
     <FeaturedProjects featuredProjects={featuredProjects} />
   </Section>
   <Section>
-    <FeaturedArticles featuredArticles={featuredArticles} />
+    <FeaturedArticles featuredArticles={homepageArticles} />
   </Section>
 </Layout>

@@ -8,12 +8,25 @@ export type Props = {
 	url: string;
 	duration?: string;
 	timestamp?: Date;
+	image?: string;
+  source?: string;
 };
 
-const { title, description, url, duration, timestamp } = Astro.props;
+const { title, description, url, duration, timestamp, image, source } = Astro.props;
 ---
 
 <div class="relative zag-text zag-transition flex flex-col gap-3 mb-8 hover-zag-dotted-grid">
+  {
+    image ? (
+      <img
+        src={image}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        class="w-full h-auto rounded-sm border border-current/20 object-contain"
+      />
+    ) : null
+  }
   <Anchor url={url} class="text-xl">
     {title}
   </Anchor>
@@ -23,7 +36,12 @@ const { title, description, url, duration, timestamp } = Astro.props;
   <div
     class="zag-muted zag-transition flex justify-between items-center"
   >
-    {timestamp ? <p>{processArticleDate(timestamp)}</p> : null}
+    <div class="flex items-center gap-3">
+      {timestamp ? <p>{processArticleDate(timestamp)}</p> : null}
+      {
+        source ? <span class="text-[0.7rem] uppercase tracking-wide">{source}</span> : null
+      }
+    </div>
     {duration ? <p>{duration}</p> : null}
   </div>
 </div>

@@ -3,13 +3,28 @@ import { getCollection } from "astro:content";
 import ArticleSnippet from "../../components/ArticleSnippet.astro";
 import Section from "../../components/common/Section.astro";
 import Layout from "../../layouts/Layout.astro";
+import type { BlogListItem } from "../../lib/types";
 import { getConfigurationCollection } from "../../lib/utils";
-
-const articles = (await getCollection("blog")).sort(
-	(a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf(),
-);
+import { getExternalBlogItems } from "../../lib/rss";
 
 const { data: config } = await getConfigurationCollection();
+
+const localArticles: BlogListItem[] = (await getCollection("blog")).map(
+  (article) => ({
+    title: article.data.title,
+    description: article.data.description,
+    duration: article.data.readTime ? `${article.data.readTime} min` : undefined,
+    url: `${config.site.baseUrl}/blog/${article.data.slug}`,
+    timestamp: article.data.timestamp,
+    image: article.data.cardImage,
+  }),
+);
+
+const externalArticles = await getExternalBlogItems();
+
+const articles: BlogListItem[] = [...localArticles, ...externalArticles].sort(
+  (a, b) => (b.timestamp?.valueOf() ?? 0) - (a.timestamp?.valueOf() ?? 0),
+);
 ---
 
 <Layout>
@@ -55,11 +70,13 @@ const { data: config } = await getConfigurationCollection();
         articles.map((article) => (
           <li>
             <ArticleSnippet
-              title={article.data.title}
-              description={article.data.description}
-              duration={`${article.data.readTime} min`}
-              url={`${config.site.baseUrl}/blog/${article.data.slug}`}
-              timestamp={article.data.timestamp}
+              title={article.title}
+              description={article.description}
+              duration={article.duration}
+              url={article.url}
+              timestamp={article.timestamp}
+              image={article.image}
+              source={article.source}
             />
           </li>
         ))
