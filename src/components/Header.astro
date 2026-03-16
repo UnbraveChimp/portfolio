@@ -4,6 +4,11 @@ import Anchor from "./common/Anchor.astro";
 import ThemeToggle from "./ThemeToggle.astro";
 
 const { data: config } = await getConfigurationCollection();
+
+const getMenuLabel = (label: string): string => {
+  if (label.toLowerCase() === "blog") return "Posts";
+  return label.charAt(0).toUpperCase() + label.slice(1);
+};
 ---
 
 <header class="zag-bg zag-border-b zag-transition sticky top-0 w-full z-10">
@@ -30,7 +35,7 @@ const { data: config } = await getConfigurationCollection();
     >
       {
         Object.entries(config.menu).map((i) => (
-          <Anchor url={i[1]}>{i[0]}</Anchor>
+          <Anchor url={i[1]}>{getMenuLabel(i[0])}</Anchor>
         ))
       }
     </div>

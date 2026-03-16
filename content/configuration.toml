@@ -12,7 +12,7 @@ cardImage = "https://ash0.dev/pfp.png"
 keywords = ["game development", "design", "writing", "coding", "ash", "portfolio", "unbravechimp", "unbrave", "chimp"]
 
 [_.blogMeta]
-title = "Ash's Blog"
+title = "Ash's Posts"
 description = "I post stuff here when I'm bored."
 longDescription = "All of my dev logs and random stuff that I post when I am bored."
 cardImage = "https://ash0.dev/pfp.png"
@@ -45,10 +45,10 @@ twitterProfile = "https://twitter.com/unbravechimp"
 linkedinProfile = "https://github.com/unbravechimp"
 
 [_.texts]
-articlesName = "Articles"
+articlesName = "Posts"
 projectsName = "Projects"
 viewAll = "View All"
-noArticles = "No articles found."
+noArticles = "No posts found."
 noProjects = "No projects found."
 
 [_.menu]
